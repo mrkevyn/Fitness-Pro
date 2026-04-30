@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Pro</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      padding:20px;
+    }
+
+    .container{
+      width:100%;
+      max-width:420px;
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(15px);
+      border-radius:20px;
+      padding:25px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
+      animation:fadeIn .6s ease;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    h2{text-align:center;margin-bottom:20px}
+
+    input,select{
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border:none;
+      margin-bottom:10px;
+      background:rgba(255,255,255,0.1);
+      color:#fff;
+    }
+
+    button{
+      width:100%;
+      padding:14px;
+      border-radius:12px;
+      border:none;
+      background:linear-gradient(135deg,#00c896,#00a86b);
+      color:#fff;
+      font-weight:bold;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    button:hover{transform:scale(1.04)}
+
+    .resultado{margin-top:20px;display:none}
+
+    .card{
+      background:rgba(255,255,255,0.08);
+      padding:12px;
+      border-radius:10px;
+      margin-top:8px;
+    }
+
+    .highlight{font-weight:bold;color:#00e6a7}
+
+    .barra{
+      margin-top:10px;
+      height:10px;
+      border-radius:10px;
+      background:#222;
+      overflow:hidden;
+    }
+
+    .barra-fill{
+      height:100%;
+      background:linear-gradient(90deg,#00c896,#00e6a7);
+      transition:0.5s;
+    }
+
+    .cta{
+      margin-top:15px;
+      padding:15px;
+      background:rgba(0,200,150,0.15);
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta button{
+      margin-top:10px;
+      background:#ff7a00;
+    }
+
+    .alert{margin-top:10px;font-size:13px;color:#ffd166}
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>💪 Fitness Pro</h2>
+
+  <input type="number" id="peso" placeholder="Peso (kg)">
+  <input type="number" id="altura" placeholder="Altura (cm)">
+  <input type="number" id="idade" placeholder="Idade">
+
+  <select id="sexo">
+    <option value="masculino">Masculino</option>
+    <option value="feminino">Feminino</option>
+  </select>
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div class="resultado" id="resultado"></div>
+
+</div>
+
+<script>
+function classificarIMC(imc){
+  if(imc < 18.5) return "Abaixo do peso";
+  if(imc < 25) return "Peso normal";
+  if(imc < 30) return "Sobrepeso";
+  return "Obesidade";
+}
+
+function calcular(){
+  const peso = +document.getElementById('peso').value;
+  const altura = +document.getElementById('altura').value / 100;
+  const idade = +document.getElementById('idade').value;
+  const sexo = document.getElementById('sexo').value;
+
+  if(!peso || !altura || !idade){
+    alert('Preencha tudo');
+    return;
+  }
+
+  const imc = peso / (altura * altura);
+
+  let gordura = sexo === 'masculino'
+    ? (1.2 * imc) + (0.23 * idade) - 16.2
+    : (1.2 * imc) + (0.23 * idade) - 5.4;
+
+  const massaMagra = peso * (1 - gordura/100);
+  const calorias = peso * 30;
+
+  const classificacao = classificarIMC(imc);
+  const progresso = Math.min((imc/40)*100,100);
+
+  let mensagem = '';
+  let textoBotao = '';
+  let link = '';
+  let objetivo = '';
+
+  if(classificacao === 'Abaixo do peso'){
+    mensagem = '📉 Você está abaixo do peso';
+    textoBotao = 'Ganhar massa muscular';
+    link = 'https://go.hotmart.com/T105631704H';
+
+    const ideal = 18.5 * (altura * altura);
+    objetivo = `Ganhar ~${(ideal - peso).toFixed(1)} kg`;
+
+  } else if(classificacao === 'Peso normal'){
+    mensagem = '✅ Você pode melhorar seu físico';
+    textoBotao = 'Definir e ganhar massa';
+    link = 'https://go.hotmart.com/T105631704H';
+    objetivo = 'Focar em definição + massa';
+
+  } else {
+    mensagem = '⚠️ Você precisa reduzir gordura';
+    textoBotao = 'Emagrecer com estratégia';
+    link = 'https://go.hotmart.com/T105631565R';
+
+    const ideal = 24.9 * (altura * altura);
+    objetivo = `Perder ~${(peso - ideal).toFixed(1)} kg`;
+  }
+
+  const el = document.getElementById('resultado');
+  el.style.display = 'block';
+
+  el.innerHTML = `
+    <div class="card">IMC: <span class="highlight">${imc.toFixed(2)}</span> (${classificacao})</div>
+
+    <div class="barra">
+      <div class="barra-fill" style="width:${progresso}%"></div>
+    </div>
+
+    <div class="card">Gordura: <span class="highlight">${gordura.toFixed(2)}%</span></div>
+    <div class="card">Massa magra: <span class="highlight">${massaMagra.toFixed(2)}kg</span></div>
+    <div class="card">Calorias: <span class="highlight">${calorias} kcal</span></div>
+
+    <div class="cta">
+      <strong>${mensagem}</strong>
+      <div class="alert">${objetivo}</div>
+
+      <button onclick="window.open('${link}','_blank')">
+        ${textoBotao}
+      </button>
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>
