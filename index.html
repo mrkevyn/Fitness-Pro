@@ -29,15 +29,16 @@
       border-radius:20px;
       padding:25px;
       box-shadow:0 10px 30px rgba(0,0,0,0.3);
-      animation:fadeIn .6s ease;
     }
 
-    @keyframes fadeIn{
-      from{opacity:0;transform:translateY(20px)}
-      to{opacity:1;transform:translateY(0)}
-    }
+    h2{text-align:center;margin-bottom:10px}
 
-    h2{text-align:center;margin-bottom:20px}
+    .desc{
+      font-size:14px;
+      opacity:0.8;
+      text-align:center;
+      margin-bottom:15px;
+    }
 
     input,select{
       width:100%;
@@ -58,10 +59,7 @@
       color:#fff;
       font-weight:bold;
       cursor:pointer;
-      transition:.3s;
     }
-
-    button:hover{transform:scale(1.04)}
 
     .resultado{margin-top:20px;display:none}
 
@@ -85,7 +83,6 @@
     .barra-fill{
       height:100%;
       background:linear-gradient(90deg,#00c896,#00e6a7);
-      transition:0.5s;
     }
 
     .cta{
@@ -101,19 +98,30 @@
       background:#ff7a00;
     }
 
-    .alert{margin-top:10px;font-size:13px;color:#ffd166}
+    .legal{
+      margin-top:20px;
+      font-size:12px;
+      opacity:0.6;
+    }
+
+    .legal summary{
+      cursor:pointer;
+      margin-bottom:8px;
+    }
 
   </style>
+
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3673954375129073"
        crossorigin="anonymous"></script>
 </head>
 <body>
 
 <div class="container">
+
   <h2>💪 Fitness Pro</h2>
-  <p style="font-size:14px;opacity:0.8;margin-bottom:10px;">
-Calcule seu IMC, gordura corporal e descubra seu nível físico em segundos.
-</p>
+  <p class="desc">
+    Calcule seu IMC, gordura corporal e descubra seu nível físico em segundos.
+  </p>
 
   <input type="number" id="peso" placeholder="Peso (kg)">
   <input type="number" id="altura" placeholder="Altura (cm)">
@@ -128,40 +136,21 @@ Calcule seu IMC, gordura corporal e descubra seu nível físico em segundos.
 
   <div class="resultado" id="resultado"></div>
 
-  <div style="margin-top:30px; font-size:13px; opacity:0.8;">
-  <h3>Sobre</h3>
-  <p>
-    O Fitness Pro é uma ferramenta gratuita para cálculo de IMC, gordura corporal
-    e estimativas calóricas, com objetivo educativo.
-  </p>
+  <!-- LEGAL LIMPO -->
+  <div class="legal">
+    <details>
+      <summary>📄 Informações legais</summary>
 
-  <h3>Política de Privacidade</h3>
-<p>
-Não coletamos dados pessoais diretamente. Utilizamos cookies de terceiros,
-como o Google AdSense, para exibir anúncios relevantes e melhorar a experiência do usuário.
-Esses cookies podem coletar informações de navegação de forma anônima.
-</p>
+      <p><strong>Sobre:</strong> Ferramenta gratuita de cálculo de IMC, gordura e calorias.</p>
 
-  <h3>Contato</h3>
-  <p>Email: kevyn.carlos@hotmail.com</p>
+      <p><strong>Privacidade:</strong> Utilizamos cookies de terceiros (AdSense) para anúncios.</p>
 
-  <h3>Como funciona</h3>
-<p>
-O cálculo de IMC é feito com base no peso e altura, ajudando a identificar se a pessoa está dentro do peso ideal.
-Já o percentual de gordura utiliza uma fórmula baseada em idade, sexo e IMC.
-</p>
+      <p><strong>Contato:</strong> kevyn.carlos@hotmail.com</p>
 
-<h3>Importante</h3>
-<p>
-Os resultados são estimativas e não substituem avaliação profissional de médicos ou nutricionistas.
-</p>
+      <p><strong>Importante:</strong> Resultados são estimativas e não substituem profissionais.</p>
 
-<h3>Objetivo da ferramenta</h3>
-<p>
-Esta ferramenta foi criada para auxiliar pessoas a entenderem melhor sua composição corporal
-e incentivar hábitos saudáveis por meio de informações simples e acessíveis.
-</p>
-</div>
+    </details>
+  </div>
 
 </div>
 
@@ -196,33 +185,9 @@ function calcular(){
   const classificacao = classificarIMC(imc);
   const progresso = Math.min((imc/40)*100,100);
 
-  let mensagem = '';
-  let textoBotao = '';
-  let link = '';
-  let objetivo = '';
-
-  if(classificacao === 'Abaixo do peso'){
-    mensagem = '📉 Você está abaixo do peso';
-    textoBotao = 'Ganhar massa muscular';
-    link = 'https://go.hotmart.com/T105631704H';
-
-    const ideal = 18.5 * (altura * altura);
-    objetivo = `Ganhar ~${(ideal - peso).toFixed(1)} kg`;
-
-  } else if(classificacao === 'Peso normal'){
-    mensagem = '✅ Você pode melhorar seu físico';
-    textoBotao = 'Definir e ganhar massa';
-    link = 'https://go.hotmart.com/T105631704H';
-    objetivo = 'Focar em definição + massa';
-
-  } else {
-    mensagem = '⚠️ Você precisa reduzir gordura';
-    textoBotao = 'Emagrecer com estratégia';
-    link = 'https://go.hotmart.com/T105631565R';
-
-    const ideal = 24.9 * (altura * altura);
-    objetivo = `Perder ~${(peso - ideal).toFixed(1)} kg`;
-  }
+  let link = classificacao === 'Obesidade'
+    ? 'https://go.hotmart.com/T105631565R'
+    : 'https://go.hotmart.com/T105631704H';
 
   const el = document.getElementById('resultado');
   el.style.display = 'block';
@@ -239,15 +204,12 @@ function calcular(){
     <div class="card">Calorias: <span class="highlight">${calorias} kcal</span></div>
 
     <div class="cta">
-      <strong>${mensagem}</strong>
-      <div class="alert">${objetivo}</div>
-
+      ⚡ Melhore seu resultado agora
       <button onclick="window.open('${link}','_blank')">
-        ${textoBotao}
+        Ver plano personalizado
       </button>
     </div>
 
-    <!-- ANÚNCIO -->
     <div style="margin-top:20px;">
       <ins class="adsbygoogle"
            style="display:block"
@@ -258,7 +220,6 @@ function calcular(){
     </div>
   `;
 
-  // ATIVA O ANÚNCIO (ESSENCIAL)
   setTimeout(() => {
     (adsbygoogle = window.adsbygoogle || []).push({});
   }, 500);
