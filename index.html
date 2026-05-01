@@ -194,28 +194,45 @@ function calcular(){
     ? 'https://go.hotmart.com/T105631565R'
     : 'https://go.hotmart.com/T105631704H';
 
+  let headline = '';
+  if(classificacao === 'Abaixo do peso'){
+    headline = '📉 Seu corpo precisa de mais massa';
+  } else if(classificacao === 'Peso normal'){
+    headline = '💪 Você pode evoluir MUITO seu físico';
+  } else {
+    headline = '⚠️ Hora de reduzir gordura com estratégia';
+  }
+
   const el = document.getElementById('resultado');
   el.style.display = 'block';
 
   el.innerHTML = `
-    <div class="card">IMC: <span class="highlight">${imc.toFixed(2)}</span> (${classificacao})</div>
+    <div class="card">
+      <strong>IMC:</strong> <span class="highlight">${imc.toFixed(2)}</span> (${classificacao})
+    </div>
 
     <div class="barra">
       <div class="barra-fill" style="width:${progresso}%"></div>
     </div>
 
-    <div class="card">Gordura: <span class="highlight">${gordura.toFixed(2)}%</span></div>
-    <div class="card">Massa magra: <span class="highlight">${massaMagra.toFixed(2)}kg</span></div>
-    <div class="card">Calorias: <span class="highlight">${calorias} kcal</span></div>
+    <div class="card">🔥 Gordura: <span class="highlight">${gordura.toFixed(1)}%</span></div>
+    <div class="card">💪 Massa magra: <span class="highlight">${massaMagra.toFixed(1)} kg</span></div>
+    <div class="card">⚡ Calorias/dia: <span class="highlight">${calorias}</span></div>
 
+    <!-- CTA -->
     <div class="cta">
-      ⚡ Você pode melhorar MUITO seu físico em poucas semanas
+      <strong>${headline}</strong>
+      <p style="font-size:13px;opacity:0.8;margin-top:5px;">
+        Descubra o plano ideal baseado no seu corpo 👇
+      </p>
+
       <button onclick="window.open('${link}','_blank')">
-        🔥 Ver plano ideal para mim
+        🔥 Ver meu plano personalizado
       </button>
     </div>
 
-    <div style="margin-top:20px;">
+    <!-- ANÚNCIO (mais discreto) -->
+    <div style="margin-top:15px;">
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-3673954375129073"
