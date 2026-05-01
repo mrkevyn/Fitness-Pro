@@ -234,21 +234,18 @@ function calcular(){
 <script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
 
 <script>
-  const counter = new Counter({
-    workspace: 'fitness-pro'
-  });
+async function contarVisitas(){
+  try{
+    const res = await fetch('https://api.countapi.xyz/hit/fitnesspro/visitas');
+    const data = await res.json();
 
-  async function contarVisitas(){
-    try{
-      const result = await counter.up('visitas'); // incrementa +1
-
-      console.log("Visitas totais:", result.value);
-    }catch(e){
-      console.log("Erro:", e);
-    }
+    console.log("Visitas totais:", data.value);
+  }catch(e){
+    console.log("Erro:", e);
   }
+}
 
-  contarVisitas();
+contarVisitas();
 </script>
 
 </body>
