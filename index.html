@@ -231,22 +231,5 @@ function calcular(){
 }
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/counterapi/dist/counter.browser.min.js"></script>
-
-<script>
-async function contarVisitas(){
-  try{
-    const res = await fetch('https://api.countapi.xyz/hit/fitnesspro/visitas');
-    const data = await res.json();
-
-    console.log("Visitas totais:", data.value);
-  }catch(e){
-    console.log("Erro:", e);
-  }
-}
-
-contarVisitas();
-</script>
-
 </body>
 </html>
