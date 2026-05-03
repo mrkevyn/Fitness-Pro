@@ -6,121 +6,167 @@
 
   <title>Descubra seu IMC e Gordura Corporal em 10s | Fitness Pro</title>
 
+  <meta name="description" content="Calcule seu IMC, gordura corporal e calorias diárias gratuitamente. Descubra seu nível físico em segundos.">
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
 
-    body{
-      font-family:'Poppins',sans-serif;
-      background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
-      padding:20px;
-    }
+body{
+  font-family:'Poppins',sans-serif;
+  background:radial-gradient(circle at top,#1b3a4b,#0f2027);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:20px;
+}
 
-    .container{
-      width:100%;
-      max-width:420px;
-      background:rgba(255,255,255,0.05);
-      backdrop-filter:blur(15px);
-      border-radius:20px;
-      padding:25px;
-      box-shadow:0 10px 30px rgba(0,0,0,0.3);
-    }
+.container{
+  width:100%;
+  max-width:420px;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(18px);
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.4);
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.3s;
+}
 
-    h2{text-align:center;margin-bottom:10px;font-size:20px}
+h1{
+  text-align:center;
+  font-size:22px;
+  margin-bottom:8px;
+}
 
-    .desc{
-      font-size:14px;
-      opacity:0.85;
-      text-align:center;
-      margin-bottom:15px;
-    }
+.desc{
+  font-size:14px;
+  opacity:0.8;
+  text-align:center;
+  margin-bottom:18px;
+}
 
-    input,select{
-      width:100%;
-      padding:12px;
-      border-radius:10px;
-      border:none;
-      margin-bottom:10px;
-      background:rgba(255,255,255,0.1);
-      color:#fff;
-      outline:none;
-    }
+/* INPUTS */
+input,select{
+  width:100%;
+  padding:13px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.08);
+  margin-bottom:10px;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  outline:none;
+  transition:0.2s;
+}
 
-    input::placeholder{color:rgba(255,255,255,0.6)}
+input:focus, select:focus{
+  border:1px solid #00e6a7;
+  box-shadow:0 0 0 2px rgba(0,230,167,0.2);
+}
 
-    select option{
-      color:#000;
-      background:#fff;
-    }
+input::placeholder{
+  color:rgba(255,255,255,0.5);
+}
 
-    button{
-      width:100%;
-      padding:14px;
-      border-radius:12px;
-      border:none;
-      background:linear-gradient(135deg,#00c896,#00a86b);
-      color:#fff;
-      font-weight:bold;
-      cursor:pointer;
-      transition:0.2s;
-    }
+/* BOTÃO */
+button{
+  width:100%;
+  padding:15px;
+  border-radius:14px;
+  border:none;
+  background:linear-gradient(135deg,#00c896,#00ffae);
+  color:#003;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.25s;
+  box-shadow:0 10px 25px rgba(0,200,150,0.3);
+}
 
-    button:hover{transform:scale(1.02)}
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 15px 30px rgba(0,200,150,0.4);
+}
 
-    .resultado{margin-top:20px;display:none}
+/* RESULTADO */
+.resultado{
+  margin-top:20px;
+  display:none;
+  animation:fadeIn 0.4s ease;
+}
 
-    .card{
-      background:rgba(255,255,255,0.08);
-      padding:12px;
-      border-radius:10px;
-      margin-top:8px;
-    }
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
 
-    .highlight{font-weight:bold;color:#00e6a7}
+.card{
+  background:rgba(255,255,255,0.07);
+  padding:14px;
+  border-radius:12px;
+  margin-top:10px;
+  border:1px solid rgba(255,255,255,0.05);
+}
 
-    .barra{
-      margin-top:10px;
-      height:10px;
-      border-radius:10px;
-      background:#222;
-      overflow:hidden;
-    }
+.highlight{
+  font-weight:bold;
+  color:#00ffae;
+}
 
-    .barra-fill{
-      height:100%;
-      background:linear-gradient(90deg,#00c896,#00e6a7);
-    }
+/* BARRA */
+.barra{
+  margin-top:12px;
+  height:12px;
+  border-radius:10px;
+  background:#1a1a1a;
+  overflow:hidden;
+}
 
-    .cta{
-      margin-top:15px;
-      padding:15px;
-      background:rgba(0,200,150,0.15);
-      border-radius:12px;
-      text-align:center;
-    }
+.barra-fill{
+  height:100%;
+  background:linear-gradient(90deg,#00c896,#00ffae);
+  transition:width 0.6s ease;
+}
 
-    .cta button{
-      margin-top:10px;
-      background:#ff7a00;
-    }
+/* CTA */
+.cta{
+  margin-top:18px;
+  padding:18px;
+  background:linear-gradient(135deg,rgba(0,200,150,0.15),rgba(0,255,170,0.1));
+  border-radius:14px;
+  text-align:center;
+  border:1px solid rgba(0,255,170,0.2);
+}
 
-    .legal{
-      margin-top:20px;
-      font-size:12px;
-      opacity:0.6;
-    }
+.cta button{
+  margin-top:12px;
+  background:#ff7a00;
+  color:#fff;
+  box-shadow:0 10px 20px rgba(255,122,0,0.3);
+}
 
-    .legal summary{
-      cursor:pointer;
-      margin-bottom:8px;
-    }
+/* LEGAL */
+.legal{
+  margin-top:18px;
+  font-size:12px;
+  opacity:0.6;
+}
 
+.loader{
+  width:40px;
+  height:40px;
+  border:4px solid rgba(255,255,255,0.1);
+  border-top:4px solid #00e6a7;
+  border-radius:50%;
+  margin:auto;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
   </style>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3673954375129073"
@@ -131,20 +177,24 @@
 
 <div class="container">
 
-  <h2>🔥 Descubra seu físico em 10 segundos</h2>
+  <h1>🔥 Descubra seu IMC e nível corporal em 10 segundos</h1>
 
   <p class="desc">
     Veja se seu corpo está evoluindo ou precisando de mudança — IMC, gordura e calorias grátis.
   </p>
 
-  <input type="number" id="peso" placeholder="Peso (kg)">
-  <input type="number" id="altura" placeholder="Altura (cm)">
-  <input type="number" id="idade" placeholder="Idade">
+  <input type="number" id="peso" placeholder="Peso (kg)" min="20" max="300">
+  <input type="number" id="altura" placeholder="Altura (cm)" min="100" max="250">
+  <input type="number" id="idade" placeholder="Idade" min="10" max="100">
 
   <select id="sexo">
     <option value="masculino">Masculino</option>
     <option value="feminino">Feminino</option>
   </select>
+
+  <p style="font-size:13px;text-align:center;margin-bottom:10px;opacity:0.7">
++10.000 pessoas já analisaram seu corpo aqui
+</p>
 
   <button onclick="calcular()">⚡ Analisar meu corpo</button>
 
@@ -192,9 +242,9 @@
 
 <div style="text-align:center;font-size:13px;opacity:0.7">
 
-  <a href="/sobre.html" style="color:#00e6a7;margin:0 8px">Sobre</a> |
-  <a href="/privacidade.html" style="color:#00e6a7;margin:0 8px">Privacidade</a> |
-  <a href="/termos.html" style="color:#00e6a7;margin:0 8px">Termos</a>
+  <a href="sobre.html" style="color:#00e6a7;margin:0 8px">Sobre</a> |
+  <a href="privacidade.html" style="color:#00e6a7;margin:0 8px">Privacidade</a> |
+  <a href="termos.html" style="color:#00e6a7;margin:0 8px">Termos</a>
 
 </div>
 
@@ -218,73 +268,91 @@ function calcular(){
     return;
   }
 
-  const imc = peso / (altura * altura);
-
-  let gordura = sexo === 'masculino'
-    ? (1.2 * imc) + (0.23 * idade) - 16.2
-    : (1.2 * imc) + (0.23 * idade) - 5.4;
-
-  const massaMagra = peso * (1 - gordura/100);
-  const calorias = peso * 30;
-
-  const classificacao = classificarIMC(imc);
-  const progresso = Math.min((imc/40)*100,100);
-
-  let link = classificacao === 'Obesidade'
-    ? 'https://go.hotmart.com/T105631565R'
-    : 'https://go.hotmart.com/T105631704H';
-
-  let headline = '';
-
-  if(classificacao === 'Abaixo do peso'){
-    headline = '📉 Seu corpo precisa evoluir massa muscular';
-  } else if(classificacao === 'Peso normal'){
-    headline = '💪 Seu físico está bom — dá pra evoluir mais';
-  } else {
-    headline = '⚠️ Seu corpo precisa reduzir gordura com estratégia';
-  }
-
   const el = document.getElementById('resultado');
   el.style.display = 'block';
 
+  // 🔥 LOADING (aumenta retenção)
   el.innerHTML = `
-    <div class="card">
-      <strong>IMC:</strong> <span class="highlight">${imc.toFixed(2)}</span> (${classificacao})
-    </div>
+  <div style="text-align:center;padding:20px">
+    <div class="loader"></div>
+    <p style="margin-top:10px;opacity:0.7">Analisando seu corpo...</p>
+  </div>
+`;
+  
+  setTimeout(() => {
 
-    <div class="barra">
-      <div class="barra-fill" style="width:${progresso}%"></div>
-    </div>
+    const imc = peso / (altura * altura);
 
-    <div class="card">🔥 Gordura: <span class="highlight">${gordura.toFixed(1)}%</span></div>
-    <div class="card">💪 Massa magra: <span class="highlight">${massaMagra.toFixed(1)} kg</span></div>
-    <div class="card">⚡ Calorias/dia: <span class="highlight">${calorias}</span></div>
+    let gordura = sexo === 'masculino'
+      ? (1.2 * imc) + (0.23 * idade) - 16.2
+      : (1.2 * imc) + (0.23 * idade) - 5.4;
 
-    <div class="cta">
-      <strong>${headline}</strong>
+    const massaMagra = peso * (1 - gordura/100);
+    const calorias = peso * 30;
 
-      <p style="font-size:13px;opacity:0.8;margin-top:5px;">
-        Veja agora um plano baseado no seu corpo 👇
+    const classificacao = classificarIMC(imc);
+    const progresso = Math.min((imc/40)*100,100);
+
+    let link = classificacao === 'Obesidade'
+      ? 'https://go.hotmart.com/T105631565R'
+      : 'https://go.hotmart.com/T105631704H';
+
+    let headline = '';
+
+    if(classificacao === 'Abaixo do peso'){
+      headline = '📉 Seu corpo precisa evoluir massa muscular';
+    } else if(classificacao === 'Peso normal'){
+      headline = '💪 Seu físico está bom — dá pra evoluir mais';
+    } else {
+      headline = '⚠️ Seu corpo precisa reduzir gordura com estratégia';
+    }
+
+    el.innerHTML = `
+      <div class="card">
+        <strong>IMC:</strong> <span class="highlight">${imc.toFixed(2)}</span> (${classificacao})
+      </div>
+
+      <p style="margin-top:10px;font-size:13px;opacity:0.8">
+        Seu corpo está <strong>${classificacao}</strong>. Isso impacta diretamente sua saúde e estética.
       </p>
 
-      <button onclick="window.open('${link}','_blank')">
-        🔥 Quero meu plano agora
-      </button>
-    </div>
+      <div class="barra">
+        <div class="barra-fill" style="width:${progresso}%"></div>
+      </div>
 
-    <div style="margin-top:15px;">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-3673954375129073"
-           data-ad-slot="1451923907"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-    </div>
-  `;
+      <div class="card">🔥 Gordura: <span class="highlight">${gordura.toFixed(1)}%</span></div>
+      <div class="card">💪 Massa magra: <span class="highlight">${massaMagra.toFixed(1)} kg</span></div>
+      <div class="card">⚡ Calorias/dia: <span class="highlight">${calorias}</span></div>
 
-  setTimeout(() => {
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  }, 500);
+      <div class="cta">
+        <strong>${headline}</strong>
+
+        <p style="font-size:13px;opacity:0.8;margin-top:5px;">
+          🔥 Descubra exatamente o que fazer a partir de hoje
+        </p>
+
+        <button onclick="window.open('${link}','_blank')">
+          🔥 Quero meu plano agora
+        </button>
+
+        
+      </div>
+
+      <div style="margin-top:15px;">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3673954375129073"
+             data-ad-slot="1451923907"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
+    `;
+
+    setTimeout(() => {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    }, 500);
+
+  }, 1200);
 }
 </script>
 
